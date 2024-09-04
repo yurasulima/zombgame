@@ -7,8 +7,8 @@ import java.awt.image.BufferedImage;
 
 public class Chest extends Block{
     private boolean opened = false;
-    private BufferedImage stateClosed;
-    private BufferedImage stateOpen;
+    private final BufferedImage stateClosed;
+    private final BufferedImage stateOpen;
     public Chest() {
         super("chest");
         stateClosed = setupImage("/objects/chest");
