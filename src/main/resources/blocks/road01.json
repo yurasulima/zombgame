@@ -1,0 +1,7 @@
+{
+  "type": "road01",
+  "collision": false,
+  "interact": false,
+  "texture": "road01",
+  "name": "Дорога"
+}

@@ -1,0 +1,7 @@
+{
+  "type": "water09",
+  "collision": true,
+  "interact": false,
+  "texture": "water09",
+  "name": "Вода"
+}
