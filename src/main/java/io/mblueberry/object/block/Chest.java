@@ -7,8 +7,10 @@ import java.awt.image.BufferedImage;
 
 public class Chest extends Block{
     private boolean opened = false;
+    public ChestContainer container;
     private final BufferedImage stateClosed;
     private final BufferedImage stateOpen;
+    private Game game;
     public Chest() {
         super("chest");
         stateClosed = setupImage("/objects/chest");
@@ -31,8 +33,10 @@ public class Chest extends Block{
         update();
     }
 
+    @Override
     public void place(Game game, int x, int y) {
-
+        this.game = game;
+        container = new ChestContainer(game, x, y);
     }
 
     public void update(){
@@ -46,6 +50,9 @@ public class Chest extends Block{
     }
 
     public void open() {
+        game.guiManager.chestInventoryUi.chest = this;
+        game.guiManager.openChestUi();
+
         opened = true;
     }
 

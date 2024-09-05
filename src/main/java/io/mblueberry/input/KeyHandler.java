@@ -1,6 +1,7 @@
 package io.mblueberry.input;
 
 import io.mblueberry.Game;
+import io.mblueberry.ui.UiState;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -15,6 +16,7 @@ public class KeyHandler implements KeyListener {
     public boolean paused;
     public boolean spacePressed;
     public boolean showStata = false;
+    public boolean showInventory = false;
 
     public Game game;
 
@@ -57,6 +59,14 @@ public class KeyHandler implements KeyListener {
             }
             if (code == KeyEvent.VK_R) {
                 showStata = !showStata;
+            }
+            if (code == KeyEvent.VK_E) {
+                showInventory = !showInventory;
+                if (showInventory) {
+                    game.uiState = UiState.INVENTORY;
+                } else {
+                    game.uiState = UiState.HUD;
+                }
             }
             if (code == KeyEvent.VK_SPACE) {
                 spacePressed = !spacePressed;

@@ -65,7 +65,7 @@ public class Entity {
     public int attackValue;
     public Entity(Game game) {
         this.game = game;
-        this.inventory = new Container(game, 36);
+        this.inventory = new Container(game, 37);
         entityTag = EntityTag.OBJECT;
         solidArea = new Rectangle(16, 32, 32, 32);
         solidAreaDefaultX = solidArea.x;

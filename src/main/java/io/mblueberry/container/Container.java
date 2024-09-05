@@ -20,9 +20,12 @@ public class Container {
     }
 
 
+    public List<GameObject> getAll() {
+        return data;
+    }
+
     public GameObject get(int index) {
         return data.get(index);
-
     }
 
     public void add(GameObject gameObject) {

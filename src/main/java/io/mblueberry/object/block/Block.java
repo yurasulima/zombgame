@@ -70,6 +70,7 @@ public class Block extends GameObject {
 
     public void interact(){}
     public void stopInteract(){}
+    public void place(Game game, int x, int y){}
 
     public void replace(Block newBlock) {
         this.type = newBlock.type;

@@ -354,6 +354,8 @@ public class World {
     }
     public void setBlock(GameObject block, int x, int y) {
         mapTileNum[2][x][y] = (Block) block;
+        ((Block) block).place(game, x, y);
+
     }
 
 

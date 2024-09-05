@@ -19,6 +19,7 @@ import io.mblueberry.server.Client;
 import io.mblueberry.server.Server;
 import io.mblueberry.ui.GuiManager;
 import io.mblueberry.ui.UI;
+import io.mblueberry.ui.UiState;
 import io.mblueberry.ui.component.Button;
 
 import javax.swing.*;
@@ -39,6 +40,7 @@ public class Game extends JPanel implements Runnable {
     public Player player;
     public String gameType;
     public GameState gameState;
+    public UiState uiState;
     public UI ui;
     public GuiManager guiManager;
     public Button button;
@@ -57,6 +59,7 @@ public class Game extends JPanel implements Runnable {
         guiManager = new GuiManager(this);
         mouseHandler = new MouseHandler(this);
         mouseMoveHandler = new MouseMoveHandler(this);
+        uiState = UiState.HUD;
         mouseWheelHandler = new MouseWheelHandler(this);
         keyHandler = new KeyHandler(this);
         collisionChecker = new CollisionChecker(this);
@@ -68,10 +71,6 @@ public class Game extends JPanel implements Runnable {
         Block tree = new Block("tree");
         tree.setupImage();
         player.inventory.add(tree);
-
-
-        player.inventory.add(new Tent());
-
         Block road00 = new Block("road00");
         road00.setupImage();
         player.inventory.add(road00);
@@ -79,11 +78,6 @@ public class Game extends JPanel implements Runnable {
         Block wall = new Block("wall");
         wall.setupImage();
         player.inventory.add(wall);
-
-        Chest chest = new Chest();
-        chest.open();
-        chest.update();
-        player.inventory.add(chest);
 
         Chest chest1 = new Chest();
         chest1.update();
