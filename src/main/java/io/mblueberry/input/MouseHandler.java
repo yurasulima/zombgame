@@ -37,6 +37,7 @@ public class MouseHandler implements MouseListener {
         if (game.gameState == GameState.PLAYING) {
             if (game.uiState == UiState.HUD) {
                 game.world.handleMouseClickWorld(e);
+                game.world.handleMouseReleased(e);
             }
             if (game.uiState == UiState.CHEST_INVENTORY) {
                 game.guiManager.chestInventoryUi.handleClickMouse(e);
@@ -46,10 +47,20 @@ public class MouseHandler implements MouseListener {
     }
 
     public void mousePressed(MouseEvent e) {
-
-        if (game.gameState == GameState.START_SCREEN) {
-            game.ui.handleMouseClick(e);
+//        if (game.gameState == GameState.START_SCREEN) {
+//            game.ui.handleMouseClick(e);
+//        }
+        if (game.gameState == GameState.PLAYING) {
+            if (game.uiState == UiState.HUD) {
+                game.world.handleMousePressed(e);
+            }
+//            if (game.uiState == UiState.CHEST_INVENTORY) {
+//                game.guiManager.chestInventoryUi.handleClickMouse(e);
+//            }
         }
+//        if (game.gameState == GameState.START_SCREEN) {
+//            game.ui.handleMouseClick(e);
+//        }
         //  game.player.shoot(e.getX(), e.getY());
 //TODO        player.shoot();
     }

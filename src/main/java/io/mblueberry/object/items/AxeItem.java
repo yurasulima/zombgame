@@ -7,6 +7,7 @@ public class AxeItem extends Item {
         type = "axe";
         texture = setup("/objects/axe");
         icon = setup("/objects/axe");
+        itemType = "axe";
     }
 
 }

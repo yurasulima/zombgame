@@ -2,27 +2,29 @@ package io.mblueberry.core;
 
 import com.google.gson.Gson;
 import io.mblueberry.Game;
+import io.mblueberry.core.particle.Particle;
+import io.mblueberry.model.WorldInfo;
+import io.mblueberry.object.block.Block;
 import io.mblueberry.object.block.Chest;
 import io.mblueberry.object.bullet.Bullet;
 import io.mblueberry.object.entity.Entity;
+import io.mblueberry.object.entity.Player;
+import io.mblueberry.object.entity.monsters.SlimeMob;
+import io.mblueberry.object.entity.npc.OldManNPC;
 import io.mblueberry.object.items.AxeItem;
 import io.mblueberry.object.items.GameObject;
 import io.mblueberry.object.items.KeyItem;
-import io.mblueberry.object.entity.monsters.SlimeMob;
-import io.mblueberry.object.entity.npc.OldManNPC;
-import io.mblueberry.object.entity.Player;
-import io.mblueberry.object.block.Block;
-import io.mblueberry.model.WorldInfo;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 import static io.mblueberry.Const.*;
+import static io.mblueberry.Game.tileSize;
 import static io.mblueberry.util.Utils.calculateDistance;
 
 public class World {
@@ -38,6 +40,8 @@ public class World {
     //public List<Block> blocks;
     public Entity npc;
     public Block defaultBlock;
+    private boolean currentPickBlockDist;
+
     public World(Game game, Player player) {
         this.game = game;
         BlockLoader blockLoader = new BlockLoader();
@@ -225,7 +229,7 @@ public class World {
     }
 
 
-    public void update(){
+    public void update() {
         for (Bullet bullet : bullets) {
             bullet.update();
         }
@@ -236,7 +240,7 @@ public class World {
                 currentEntity.update();
             }
 
-            if (!currentEntity.alive){
+            if (!currentEntity.alive) {
                 game.world.entities.remove(currentEntity);
             }
 
@@ -251,7 +255,7 @@ public class World {
 
         int maxWorldColumn = mapSize.width;
         int maxWorldRow = mapSize.height;
-        int tileSize = game.tileSize;
+        int tileSize = Game.tileSize;
 
 
         for (int row = 0; row < maxWorldRow; row++) {
@@ -280,7 +284,7 @@ public class World {
                     g2.drawImage(block.getImage(), screenX + offsetX, screenY + offsetY, null);
 
                 }
-          }
+            }
         }
 
 
@@ -295,7 +299,7 @@ public class World {
                 if (e1.isPlayer) {
                     a1y -= game.cameraY;
                 }
-                return Integer.compare(a1y, a2y );
+                return Integer.compare(a1y, a2y);
 
             }
         });
@@ -308,7 +312,7 @@ public class World {
             gameObject.draw(g2);
 
         }
-  //      entities.clear();
+        //      entities.clear();
         for (Bullet bullet : bullets) {
             bullet.draw(g2);
         }
@@ -323,25 +327,28 @@ public class World {
 
         if (currentPickBlock != null) {
             double v = calculateDistance(
-                    currentPickBlock.getX() * game.tileSize + game.cameraX,
-                    currentPickBlock.getY() * game.tileSize + game.cameraY,
+                    currentPickBlock.getX() * Game.tileSize + game.cameraX,
+                    currentPickBlock.getY() * Game.tileSize + game.cameraY,
                     game.player.screenX,
                     game.player.screenY);
 
             if (v
-                > 64.0 * 5) {
+                > 64.0 * 3) {
                 g2.setColor(Color.RED);
+                currentPickBlockDist = false;
             } else {
                 g2.setColor(Color.GREEN);
+                currentPickBlockDist = true;
             }
-            g2.drawRect(currentPickBlock.getX() * game.tileSize  + game.cameraX, currentPickBlock.getY() * game.tileSize  + game.cameraY, 64, 64);
+            g2.drawRect(currentPickBlock.getX() * Game.tileSize + game.cameraX, currentPickBlock.getY() * Game.tileSize + game.cameraY, 64, 64);
 
         }
 
     }
+
     public Block getTileScreen(int screenX, int screenY) {
-        int x = screenX / game.tileSize;
-        int y = screenY / game.tileSize;
+        int x = screenX / tileSize;
+        int y = screenY / tileSize;
         Block block = mapTileNum[WORLD_LAYER_OBJECTS][x][y];
         if (block != null) {
             return block;
@@ -353,6 +360,7 @@ public class World {
 
         return null;
     }
+
     public void setBlock(Block block, int x, int y) {
         if (block.getName().equals("chest")) {
             Chest chest = new Chest(game);
@@ -374,6 +382,25 @@ public class World {
         currentPickBlock = getTileScreen(e.getX() - game.cameraX, e.getY() - game.cameraY);
     }
 
+//    private final long requiredHoldTime = 2000; // час, який необхідно тримати (в мілісекундах)
+//    private long pressStartTime;
+
+    public void handleMousePressed(MouseEvent e) {
+
+        //   pressStartTime = System.currentTimeMillis();
+    }
+
+    public void handleMouseReleased(MouseEvent e) {
+//        if (e.getButton() == MouseEvent.BUTTON3) { // ПКМ
+//            long pressDuration = System.currentTimeMillis() - pressStartTime;
+//            if (pressDuration >= requiredHoldTime) {
+//                //getTileScreen(e.getX() - game.cameraX, e.getY() - game.cameraY);
+//                currentPickBlock.replace(defaultBlock);
+//                System.out.println("Блок зруйновано!");
+//            }
+//        }
+    }
+
     public void handleMouseClickWorld(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1) {
             GameObject gameObject = game.player.inventory.get(game.guiManager.gameUi.currentSlot);
@@ -386,9 +413,34 @@ public class World {
     }
 
     private void interactWorldBlock() {
-        if (currentPickBlock.isInteract()) {
-            currentPickBlock.interact();
+        if (currentPickBlockDist) {
+            if (currentPickBlock.isInteract()) {
+                currentPickBlock.interact();
+            } else {
+                GameObject gameObject = game.player.inventory.get(game.guiManager.gameUi.currentSlot);
+                if (currentPickBlock.itemType.equals("tree") && gameObject.itemType.equals("axe")) {
+
+                    Block trunk = new Block("trunk");
+                    trunk.setupImage();
+                    currentPickBlock.replace(trunk);
+//
+//                   //TODO int particleCount = 20; // Кількість частинок, які будуть створені
+//
+//                    for (int i = 0; i < particleCount; i++) {
+//                        // Генеруємо випадкові напрямок та швидкість для кожної частинки
+//                        double direction = Math.random() * 2 * Math.PI; // Випадковий напрямок у радіанах
+//                        double speed = Math.random() * 2 + 1; // Випадкова швидкість
+//
+//                        // Створюємо нову частинку з позицією блоку, напрямком і швидкістю
+//                        Particle particle = new Particle(game, currentPickBlock.getX() * tileSize + 32 + game.cameraX, currentPickBlock.getY() * tileSize + 32 + game.cameraY, direction, speed);
+//
+//                        // Додаємо частинку до системи частинок
+//                        game.particleSystem.addParticle(particle);
+//                    }
+                }
+            }
         }
     }
+
 }
 

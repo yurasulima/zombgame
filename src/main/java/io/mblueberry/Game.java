@@ -4,6 +4,7 @@ import io.mblueberry.core.CollisionChecker;
 import io.mblueberry.core.EventHandler;
 import io.mblueberry.core.GameState;
 import io.mblueberry.core.World;
+import io.mblueberry.core.particle.ParticleSystem;
 import io.mblueberry.object.block.Chest;
 import io.mblueberry.object.block.Tent;
 import io.mblueberry.object.entity.Player;
@@ -42,6 +43,7 @@ public class Game extends JPanel implements Runnable {
     public GameState gameState;
     public UiState uiState;
     public UI ui;
+    public ParticleSystem particleSystem;
     public GuiManager guiManager;
     public Button button;
     public Button buttonServer;
@@ -59,6 +61,7 @@ public class Game extends JPanel implements Runnable {
         guiManager = new GuiManager(this);
         mouseHandler = new MouseHandler(this);
         mouseMoveHandler = new MouseMoveHandler(this);
+        particleSystem = new ParticleSystem();
         uiState = UiState.HUD;
         mouseWheelHandler = new MouseWheelHandler(this);
         keyHandler = new KeyHandler(this);
@@ -161,6 +164,7 @@ public class Game extends JPanel implements Runnable {
         }
         ui.update();
         guiManager.update();
+        particleSystem.update();
     }
 
     @Override
@@ -207,6 +211,7 @@ public class Game extends JPanel implements Runnable {
       //  ui.draw(g2);
         world.draw(g2);
         guiManager.draw(g2);
+        particleSystem.draw(g2);
         g2.dispose();
     }
 
