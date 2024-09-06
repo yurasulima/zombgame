@@ -1,8 +1,8 @@
 package io.mblueberry.object.entity;
 
 import io.mblueberry.object.bullet.Bullet;
-import io.mblueberry.object.items.ShieldItem;
-import io.mblueberry.object.items.SwordItem;
+import io.mblueberry.object.item.ShieldItem;
+import io.mblueberry.object.item.SwordItem;
 import io.mblueberry.Game;
 import io.mblueberry.util.Utils;
 import io.mblueberry.object.block.Block;

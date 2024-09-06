@@ -1,6 +1,6 @@
 package io.mblueberry.container;
 
-import io.mblueberry.object.items.GameObject;
+import io.mblueberry.object.item.GameObject;
 import io.mblueberry.Game;
 
 import java.util.ArrayList;
@@ -58,6 +58,11 @@ public class Container {
         }
     }
 
+
+
+    public void save(int index) {
+       //TODO save all chests
+    }
     public void remove(int index) {
         data.set(index, null);
     }

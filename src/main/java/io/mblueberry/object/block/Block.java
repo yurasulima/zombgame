@@ -3,7 +3,7 @@ package io.mblueberry.object.block;
 import io.mblueberry.util.Utils;
 import lombok.Getter;
 import lombok.Setter;
-import io.mblueberry.object.items.GameObject;
+import io.mblueberry.object.item.GameObject;
 import io.mblueberry.Game;
 
 import javax.imageio.ImageIO;

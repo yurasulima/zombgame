@@ -15,8 +15,8 @@ public class OldManNPC extends Entity {
     public OldManNPC(Game game, int spawnX, int spawnY) {
         super(game);
 
-        screenX = game.tileSize * spawnX;
-        screenY = game.tileSize * spawnY;
+        screenX = Game.tileSize * spawnX;
+        screenY = Game.tileSize * spawnY;
         direction = "down";
         move = 1;
         getImage();
@@ -27,10 +27,6 @@ public class OldManNPC extends Entity {
         maxLife = 10;
 
     }
-
-//    @Override
-//    public void update(){
-//    }
 
     public void getImage() {
         up1 = setup("/npc/oldman_up_1");
@@ -49,12 +45,13 @@ public class OldManNPC extends Entity {
     }
 
     public void setDialogue() {
-        dialogues[0] = "Hello";
-        dialogues[1] = str("Вибач за біль,\nпосилені процедури моніторингу.\nЕт Нехай так буде. Відплата чудово");
-        dialogues[2] = "Maecenas potenti suspendisse.";
-        dialogues[3] = "Maecenas potenti suspendisse.";
-        dialogues[4] = "Nulla amet sed ligula.";
-        dialogues[5] = "Luctus semper eros.";
+        //TODO refactor dialog system
+//        dialogues[0] = "Hello";
+//        dialogues[1] = str("Вибач за біль,\nпосилені процедури моніторингу.\nЕт Нехай так буде. Відплата чудово");
+//        dialogues[2] = "Maecenas potenti suspendisse.";
+//        dialogues[3] = "Maecenas potenti suspendisse.";
+//        dialogues[4] = "Nulla amet sed ligula.";
+//        dialogues[5] = "Luctus semper eros.";
 
     }
 

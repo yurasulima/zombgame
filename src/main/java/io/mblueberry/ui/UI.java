@@ -3,7 +3,7 @@ package io.mblueberry.ui;
 import io.mblueberry.Game;
 import io.mblueberry.core.GameState;
 import io.mblueberry.core.Tile;
-import io.mblueberry.object.items.HeartItem;
+import io.mblueberry.object.item.HeartItem;
 import io.mblueberry.ui.component.Button;
 import io.mblueberry.ui.component.Slot;
 import io.mblueberry.util.Utils;

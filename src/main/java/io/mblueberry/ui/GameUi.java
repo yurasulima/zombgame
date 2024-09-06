@@ -1,6 +1,6 @@
 package io.mblueberry.ui;
 
-import io.mblueberry.object.items.GameObject;
+import io.mblueberry.object.item.GameObject;
 import io.mblueberry.Game;
 import io.mblueberry.ui.component.Slot;
 

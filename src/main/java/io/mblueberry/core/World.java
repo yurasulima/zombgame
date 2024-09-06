@@ -2,7 +2,6 @@ package io.mblueberry.core;
 
 import com.google.gson.Gson;
 import io.mblueberry.Game;
-import io.mblueberry.core.particle.Particle;
 import io.mblueberry.model.WorldInfo;
 import io.mblueberry.object.block.Block;
 import io.mblueberry.object.block.Chest;
@@ -11,9 +10,9 @@ import io.mblueberry.object.entity.Entity;
 import io.mblueberry.object.entity.Player;
 import io.mblueberry.object.entity.monsters.SlimeMob;
 import io.mblueberry.object.entity.npc.OldManNPC;
-import io.mblueberry.object.items.AxeItem;
-import io.mblueberry.object.items.GameObject;
-import io.mblueberry.object.items.KeyItem;
+import io.mblueberry.object.item.AxeItem;
+import io.mblueberry.object.item.GameObject;
+import io.mblueberry.object.item.KeyItem;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;

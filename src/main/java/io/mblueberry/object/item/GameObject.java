@@ -1,4 +1,4 @@
-package io.mblueberry.object.items;
+package io.mblueberry.object.item;
 
 import io.mblueberry.Game;
 import lombok.Getter;

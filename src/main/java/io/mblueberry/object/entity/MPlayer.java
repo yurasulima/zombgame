@@ -4,6 +4,7 @@ import io.mblueberry.Game;
 
 import java.awt.*;
 
+import static io.mblueberry.Game.tileSize;
 import static io.mblueberry.util.Utils.getLocalCenterTextX;
 
 public class MPlayer extends Entity {
@@ -15,8 +16,8 @@ public class MPlayer extends Entity {
     public MPlayer(Game game, int spawnX, int spawnY, String name) {
         super(game);
 
-        screenX = game.tileSize * spawnX;
-        screenY = game.tileSize * spawnY;
+        screenX = tileSize * spawnX;
+        screenY = tileSize * spawnY;
         this.game = game;
         this.name = name;
         getImage();
@@ -24,7 +25,6 @@ public class MPlayer extends Entity {
         move = 1;
         entityTag = EntityTag.MPLAYER;
         isMPlayer = true;
-      //  setAction();
     }
 
     public void getImage() {

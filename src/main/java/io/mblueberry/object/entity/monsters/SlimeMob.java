@@ -12,8 +12,8 @@ public class SlimeMob extends Entity {
     public SlimeMob(Game game, int spawnX, int spawnY) {
         super(game);
 
-        screenX = game.tileSize * spawnX;
-        screenY = game.tileSize * spawnY;
+        screenX = Game.tileSize * spawnX;
+        screenY = Game.tileSize * spawnY;
         direction = "down";
         move = 1;
         attack = 5;

@@ -2,7 +2,7 @@ package io.mblueberry.ui;
 
 import io.mblueberry.Game;
 import io.mblueberry.object.block.Chest;
-import io.mblueberry.object.items.GameObject;
+import io.mblueberry.object.item.GameObject;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

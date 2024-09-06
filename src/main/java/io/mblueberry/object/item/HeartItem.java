@@ -1,4 +1,4 @@
-package io.mblueberry.object.items;
+package io.mblueberry.object.item;
 
 import io.mblueberry.object.entity.Entity;
 import io.mblueberry.object.entity.EntityTag;
@@ -6,6 +6,7 @@ import io.mblueberry.Game;
 
 import java.awt.image.BufferedImage;
 
+//TODO refactor
 public class HeartItem extends Entity {
 
 

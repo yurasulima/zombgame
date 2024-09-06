@@ -1,6 +1,6 @@
 package io.mblueberry.object.entity;
 
-import io.mblueberry.object.items.GameObject;
+import io.mblueberry.object.item.GameObject;
 import io.mblueberry.Game;
 import io.mblueberry.util.Utils;
 import io.mblueberry.container.Container;
