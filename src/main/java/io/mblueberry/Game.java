@@ -68,9 +68,25 @@ public class Game extends JPanel implements Runnable {
         player.inventory.add(new AxeItem());
         player.inventory.add(new SwordItem());
         player.inventory.add(new ShieldItem());
+        Chest chest1 = new Chest(this);
+        chest1.update();
+        player.inventory.add(chest1);
+
         Block tree = new Block("tree");
         tree.setupImage();
+        tree.stackCount = 33;
         player.inventory.add(tree);
+
+        Block tree1 = new Block("tree");
+        tree1.setupImage();
+        tree1.stackCount = 31;
+        player.inventory.add(tree1);
+
+
+        Block tree2 = new Block("tree");
+        tree2.setupImage();
+        player.inventory.add(tree2);
+
         Block road00 = new Block("road00");
         road00.setupImage();
         player.inventory.add(road00);
@@ -79,9 +95,6 @@ public class Game extends JPanel implements Runnable {
         wall.setupImage();
         player.inventory.add(wall);
 
-        Chest chest1 = new Chest();
-        chest1.update();
-        player.inventory.add(chest1);
 
         world = new World(this, player);
         ui = new UI(this);

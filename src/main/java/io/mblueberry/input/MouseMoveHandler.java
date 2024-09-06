@@ -2,6 +2,7 @@ package io.mblueberry.input;
 
 import io.mblueberry.Game;
 import io.mblueberry.core.GameState;
+import io.mblueberry.ui.UiState;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
@@ -24,6 +25,16 @@ public class MouseMoveHandler implements MouseMotionListener {
         if (game.gameState == GameState.START_SCREEN) {
          //   game.guiManager.handleMouseUI(e);
         }
-        game.world.handleMouseMove(e);
+        if (game.gameState == GameState.PLAYING) {
+            if (game.uiState == UiState.HUD) {
+                game.world.handleMouseMove(e);
+            }
+            if (game.uiState == UiState.INVENTORY) {
+                game.guiManager.inventoryUi.handleMoveMouse(e);
+            }
+            if (game.uiState == UiState.CHEST_INVENTORY) {
+                game.guiManager.chestInventoryUi.handleMoveMouse(e);
+            }
+        }
     }
 }

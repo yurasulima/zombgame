@@ -2,6 +2,7 @@ package io.mblueberry.core;
 
 import com.google.gson.Gson;
 import io.mblueberry.Game;
+import io.mblueberry.object.block.Chest;
 import io.mblueberry.object.bullet.Bullet;
 import io.mblueberry.object.entity.Entity;
 import io.mblueberry.object.items.AxeItem;
@@ -352,9 +353,15 @@ public class World {
 
         return null;
     }
-    public void setBlock(GameObject block, int x, int y) {
-        mapTileNum[2][x][y] = (Block) block;
-        ((Block) block).place(game, x, y);
+    public void setBlock(Block block, int x, int y) {
+        if (block.getName().equals("chest")) {
+            Chest chest = new Chest(game);
+            chest.place(game, x, y);
+            chest.update();
+            mapTileNum[2][x][y] = chest;
+        } else {
+            mapTileNum[2][x][y] = block;
+        }
 
     }
 
@@ -370,7 +377,7 @@ public class World {
     public void handleMouseClickWorld(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1) {
             GameObject gameObject = game.player.inventory.get(game.guiManager.gameUi.currentSlot);
-            setBlock(gameObject, currentPickBlock.getX(), currentPickBlock.getY());
+            setBlock((Block) gameObject, currentPickBlock.getX(), currentPickBlock.getY());
         }
         if (e.getButton() == MouseEvent.BUTTON3) {
             interactWorldBlock();
@@ -379,7 +386,6 @@ public class World {
     }
 
     private void interactWorldBlock() {
-        System.out.println("in = ");
         if (currentPickBlock.isInteract()) {
             currentPickBlock.interact();
         }

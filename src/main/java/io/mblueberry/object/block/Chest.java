@@ -11,8 +11,9 @@ public class Chest extends Block{
     private final BufferedImage stateClosed;
     private final BufferedImage stateOpen;
     private Game game;
-    public Chest() {
+    public Chest(Game game) {
         super("chest");
+        this.game = game;
         stateClosed = setupImage("/objects/chest");
         stateOpen = setupImage("/objects/chest_opened");
         setInteract(true);
@@ -33,9 +34,10 @@ public class Chest extends Block{
         update();
     }
 
-    @Override
     public void place(Game game, int x, int y) {
-        this.game = game;
+        this.setX(x);
+        this.setY(y);
+        System.out.println("PLACED " + this.getType());
         container = new ChestContainer(game, x, y);
     }
 
@@ -55,6 +57,7 @@ public class Chest extends Block{
 
         opened = true;
     }
+
 
     public void close() {
         opened = false;

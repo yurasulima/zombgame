@@ -36,17 +36,24 @@ public class Block extends GameObject {
     }
     public Block(String type) {
         this.type = type;
+        this.itemType =type;
         this.texture = type;
+        this.name = type;
     }
 
     public Block(Block other) {
+        this.x = other.x;
+        this.y = other.y;
         this.type = other.type;
+        this.itemType = other.type;
         this.collision = other.collision;
         this.interact = other.interact;
         this.texture = other.texture;
         this.name = other.name;
         this.image = other.image;
     }
+
+    public void update(){}
     public void setupImage() {
         try {
             BufferedImage img = ImageIO.read(getClass().getResourceAsStream("/tiles/" + texture + ".png"));
@@ -68,9 +75,6 @@ public class Block extends GameObject {
         return scaleImage;
     }
 
-    public void interact(){}
-    public void stopInteract(){}
-    public void place(Game game, int x, int y){}
 
     public void replace(Block newBlock) {
         this.type = newBlock.type;

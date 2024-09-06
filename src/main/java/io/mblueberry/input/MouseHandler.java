@@ -3,6 +3,7 @@ package io.mblueberry.input;
 
 import io.mblueberry.Game;
 import io.mblueberry.core.GameState;
+import io.mblueberry.ui.UiState;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -34,7 +35,12 @@ public class MouseHandler implements MouseListener {
             game.ui.handleMouseClick(e);
         }
         if (game.gameState == GameState.PLAYING) {
-            game.world.handleMouseClickWorld(e);
+            if (game.uiState == UiState.HUD) {
+                game.world.handleMouseClickWorld(e);
+            }
+            if (game.uiState == UiState.CHEST_INVENTORY) {
+                game.guiManager.chestInventoryUi.handleClickMouse(e);
+            }
         }
 
     }

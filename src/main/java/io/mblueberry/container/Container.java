@@ -36,9 +36,30 @@ public class Container {
             }
         }
     }
+    public void addAt(GameObject newItem, int i) {
+        GameObject containerItem = data.get(i);
+        if (containerItem == null) {
+            data.set(i, newItem);
+        } else {
+            if (containerItem.itemType.equals(newItem.itemType)) {
+                if (containerItem.stackCount < containerItem.stackSize) {
+                    if (containerItem.stackSize >= containerItem.stackCount + newItem.getStackCount()) {
+                        containerItem.stackCount += newItem.stackCount;
+                        newItem.stackCount = 0;
+                        data.set(i, containerItem);
+                    } else {
+                        int maxAdd = containerItem.stackSize - containerItem.getStackCount();
+                        newItem.stackCount = newItem.stackCount - maxAdd;
+                        containerItem.stackCount = containerItem.stackCount + maxAdd;
+                        data.set(i, containerItem);
+                    }
+                }
+            }
+        }
+    }
 
     public void remove(int index) {
-        data.remove(index);
+        data.set(index, null);
     }
 
 }

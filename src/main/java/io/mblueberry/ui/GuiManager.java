@@ -10,7 +10,7 @@ import java.awt.event.MouseWheelEvent;
 public class GuiManager implements IBaseUi {
     private Game game;
     public GameUi gameUi;
-    private InventoryUi inventoryUi;
+    public InventoryUi inventoryUi;
     public ChestInventoryUi chestInventoryUi;
     private StartMenuUi startMenuUi;
 
@@ -70,6 +70,7 @@ public class GuiManager implements IBaseUi {
 
         if (game.gameState == GameState.PLAYING) {
             gameUi.handleMouseWheel(e);
+            chestInventoryUi.handleMouseWheel(e);
         }
         if (game.gameState == GameState.INVENTORY) {
             inventoryUi.handleMouseWheel(e);
