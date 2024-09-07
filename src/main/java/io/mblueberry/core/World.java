@@ -365,9 +365,19 @@ public class World {
             Chest chest = new Chest(game);
             chest.place(game, x, y);
             chest.update();
-            mapTileNum[2][x][y] = chest;
+
+            if (mapTileNum[WORLD_LAYER_WORLD][x][y] == null) {
+                mapTileNum[WORLD_LAYER_WORLD][x][y] = chest;
+            } else if (mapTileNum[WORLD_LAYER_OBJECTS][x][y] == null) {
+                mapTileNum[WORLD_LAYER_OBJECTS][x][y] = chest;
+            }
         } else {
-            mapTileNum[2][x][y] = block;
+            mapTileNum[WORLD_LAYER_WORLD][x][y] = block;
+//            if (mapTileNum[WORLD_LAYER_WORLD][x][y] == null) {
+//                mapTileNum[WORLD_LAYER_WORLD][x][y] = block;
+//            } else  if (mapTileNum[WORLD_LAYER_OBJECTS][x][y] == null) {
+//                mapTileNum[WORLD_LAYER_OBJECTS][x][y] = block;
+//            }
         }
 
     }
