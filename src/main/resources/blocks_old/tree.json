@@ -1,0 +1,7 @@
+{
+  "type": "tree",
+  "collision": true,
+  "interact": false,
+  "texture": "tree",
+  "name": "Дерево"
+}

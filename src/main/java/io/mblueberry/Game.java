@@ -90,15 +90,6 @@ public class Game extends JPanel implements Runnable {
         Block grass01 = new Block("grass01");
         player.inventory.add(grass01);
 
-
-        Block grass00 = new Block("grass00");
-        grass00.setupImage();
-        player.inventory.add(grass00);
-
-        Block grass01 = new Block("grass01");
-        grass01.setupImage();
-        player.inventory.add(grass01);
-
         Block tree = new Block("tree");
         tree.stackCount = 33;
         player.inventory.add(tree);
@@ -113,7 +104,6 @@ public class Game extends JPanel implements Runnable {
 
         Block road00 = new Block("road00");
         player.inventory.add(road00);
-
 
         Block wall = new Block("wall");
         player.inventory.add(wall);

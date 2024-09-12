@@ -102,7 +102,7 @@ public class GameUi implements IBaseUi {
     public void draw(Graphics2D g2) {
         drawHotBar(g2);
         drawGameObjects(g2);
-        drawLifes(g2);
+       // drawLifes(g2);
         if (currentPickBlock != null) {
             drawPicker(g2);
 

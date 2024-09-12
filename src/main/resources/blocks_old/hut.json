@@ -1,0 +1,7 @@
+{
+  "type": "hut",
+  "collision": false,
+  "interact": false,
+  "texture": "hut",
+  "name": "Хижа"
+}

@@ -45,6 +45,7 @@ public class TextureUtil {
     @SneakyThrows
     public static BufferedImage loadBlockTexture(String imageName) {
         BufferedImage scaleImage = getBufferedImage(imageName, "/textures/blocks");
+        System.out.println("scaleImage = " + scaleImage);
         scaleImage = scaleTexture(scaleImage, TILE_SIZE, TILE_SIZE);
         return scaleImage;
     }

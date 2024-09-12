@@ -1,0 +1,7 @@
+{
+  "type": "trunk",
+  "collision": false,
+  "interact": false,
+  "texture": "trunk",
+  "name": "Зрубане дерево"
+}

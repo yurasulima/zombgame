@@ -1,0 +1,7 @@
+{
+  "type": "dirt_grass_12",
+  "collision": true,
+  "interact": true,
+  "texture": "dirt_grass_12",
+  "name": "Земляна стіна"
+}
