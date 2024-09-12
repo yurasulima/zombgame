@@ -27,7 +27,8 @@ public class MouseMoveHandler implements MouseMotionListener {
         }
         if (game.gameState == GameState.PLAYING) {
             if (game.uiState == UiState.HUD) {
-                game.world.handleMouseMove(e);
+                game.guiManager.gameUi.handleMouseMove(e);
+                game.guiManager.gameUi.handleMouse(e);
             }
             if (game.uiState == UiState.INVENTORY) {
                 game.guiManager.inventoryUi.handleMoveMouse(e);

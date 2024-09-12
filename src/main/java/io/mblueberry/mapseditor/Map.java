@@ -1,9 +1,6 @@
 package io.mblueberry.mapseditor;
 
-import com.google.gson.Gson;
-import io.mblueberry.Game;
 import io.mblueberry.core.BlockLoader;
-import io.mblueberry.object.block.Block;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -20,31 +17,34 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.mblueberry.Game.tileSize;
 
 public class Map implements IBaseUi {
-    public static int TILE_SIZE = 64;
+    public static int TILE_SIZE_EDITOR = 64;
     public Tile[][][] map;
     public List<Tile> tiles = new ArrayList<>();
     public Tile currentPickBlock;
     public MapsEditor mapsEditor;
-
+    public WorldInfo worldInfo;
     BufferedImage holder;
 
 
     public Map(MapsEditor mapsEditor) {
         try {
-            holder = ImageIO.read(getClass().getResourceAsStream("/editor/tiles/holder.png"));
+            holder = ImageIO.read(getClass().getResourceAsStream("/textures/blocks/holder.png"));
         } catch (IOException e) {
             holder = null;
             throw new RuntimeException(e);
         }
+        int mapSize = 50;
+
         loadTiles();
+        worldInfo = new WorldInfo();
+        worldInfo.setSize(mapSize);
 
         this.mapsEditor = mapsEditor;
-        this.map = new Tile[3][100][100];
-        for (int x = 0; x < 100; x++) {
-            for (int y = 0; y < 100; y++) {
+        this.map = new Tile[3][worldInfo.getSize()][worldInfo.getSize()];
+        for (int x = 0; x < worldInfo.getSize(); x++) {
+            for (int y = 0; y < worldInfo.getSize(); y++) {
                 Tile holders = new Tile(holder, "holder");
                 holders.setPos(x, y);
                 map[0][x][y] = holders;
@@ -55,14 +55,15 @@ public class Map implements IBaseUi {
 
     @Override
     public void draw(Graphics2D g2) {
-        for (int x = 0; x < 100; x++) {
-            for (int y = 0; y < 100; y++) {
+
+        for (int x = 0; x < worldInfo.getSize(); x++) {
+            for (int y = 0; y < worldInfo.getSize(); y++) {
                 Tile tile = map[0][x][y];
-                g2.drawImage(tile.texture, x * TILE_SIZE + mapsEditor.cameraX, y * TILE_SIZE + mapsEditor.cameraY, TILE_SIZE, TILE_SIZE, null);
+                g2.drawImage(tile.texture, x * TILE_SIZE_EDITOR + mapsEditor.cameraX, y * TILE_SIZE_EDITOR + mapsEditor.cameraY, TILE_SIZE_EDITOR, TILE_SIZE_EDITOR, null);
             }
         }
         if (currentPickBlock != null) {
-            g2.drawRect((currentPickBlock.x * TILE_SIZE) + mapsEditor.cameraX, (currentPickBlock.y * TILE_SIZE) + mapsEditor.cameraY, TILE_SIZE, TILE_SIZE);
+            g2.drawRect((currentPickBlock.x * TILE_SIZE_EDITOR) + mapsEditor.cameraX, (currentPickBlock.y * TILE_SIZE_EDITOR) + mapsEditor.cameraY, TILE_SIZE_EDITOR, TILE_SIZE_EDITOR);
 
         }
     }
@@ -84,8 +85,8 @@ public class Map implements IBaseUi {
     }
 
     public Tile getTileScreen(int screenX, int screenY) {
-        int x = screenX / TILE_SIZE;
-        int y = screenY / TILE_SIZE;
+        int x = screenX / TILE_SIZE_EDITOR;
+        int y = screenY / TILE_SIZE_EDITOR;
         if (x < 0 || y < 0) {
             return null;
         }
@@ -112,7 +113,7 @@ public class Map implements IBaseUi {
 
     public void loadTiles() {
         try {
-            URL resourceUrl = BlockLoader.class.getClassLoader().getResource("editor/tiles");
+            URL resourceUrl = BlockLoader.class.getClassLoader().getResource("textures/blocks");
             if (resourceUrl != null) {
                 Path blocksPath = Paths.get(resourceUrl.toURI());
                 try (DirectoryStream<Path> stream = Files.newDirectoryStream(blocksPath, "*.png")) {

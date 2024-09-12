@@ -1,6 +1,5 @@
 package io.mblueberry.server;
 
-import io.mblueberry.object.entity.MPlayer;
 import io.mblueberry.Game;
 
 import java.io.BufferedReader;
@@ -94,7 +93,7 @@ public class Server extends Thread {
                 System.out.println(nickname + " connected!");
                 int x = 20;
                 int y = 22;
-                game.world.entities.add(new MPlayer(game, x, y, nickname));
+               // game.world.entities.add(new MPlayer(game, x, y, nickname));
                 broadcast("/spawn " + nickname + " " + x + " " + y);
                 String message;
                 while ((message = in.readLine()) != null) {
@@ -112,11 +111,11 @@ public class Server extends Thread {
 
 
                         for (int i = 0; i < game.world.entities.size(); i++) {
-                            System.out.println("entity.isMPlayer = " + game.world.entities.get(i).name);
-                            if (game.world.entities.get(i).name.equals(name)) {
-                                game.world.entities.get(i).screenX = newx + game.cameraX;
-                                game.world.entities.get(i).screenY = newy + game.cameraY;;
-                           }
+                          //  System.out.println("entity.isMPlayer = " + game.world.entities.get(i).name);
+//                            if (game.world.entities.get(i).name.equals(name)) {
+//                                game.world.entities.get(i).screenX = newx + game.cameraX;
+//                                game.world.entities.get(i).screenY = newy + game.cameraY;;
+//                           }
                         }
 
 

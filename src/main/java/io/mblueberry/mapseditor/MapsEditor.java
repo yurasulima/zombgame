@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class MapsEditor extends JPanel implements Runnable {
 
-    public int cameraX = 200;
+    public int cameraX = 214;
     public int cameraY = 0;
     public Thread editorThread;
     public EditorUi editorUi;

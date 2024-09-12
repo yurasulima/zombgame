@@ -1,7 +1,0 @@
-{
-  "type": "earth",
-  "collision": false,
-  "interact": false,
-  "texture": "earth",
-  "name": "Земля"
-}

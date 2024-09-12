@@ -2,7 +2,6 @@ package io.mblueberry.ui;
 
 import io.mblueberry.Game;
 import io.mblueberry.core.GameState;
-import io.mblueberry.object.block.Chest;
 
 import java.awt.*;
 import java.awt.event.MouseWheelEvent;
@@ -10,8 +9,10 @@ import java.awt.event.MouseWheelEvent;
 public class GuiManager implements IBaseUi {
     private Game game;
     public GameUi gameUi;
+    public DebugUi debugUi;
     public InventoryUi inventoryUi;
     public ChestInventoryUi chestInventoryUi;
+    public ChatUi chatUi;
     private StartMenuUi startMenuUi;
 
     public GuiManager(Game game) {
@@ -20,6 +21,8 @@ public class GuiManager implements IBaseUi {
         inventoryUi = new InventoryUi(game);
         chestInventoryUi = new ChestInventoryUi(game);
         startMenuUi = new StartMenuUi(game);
+        debugUi = new DebugUi(game);
+        chatUi = new ChatUi(game);
     }
 
 
@@ -30,6 +33,11 @@ public class GuiManager implements IBaseUi {
             if (game.keyHandler.showInventory) {
                 inventoryUi.update();
             }
+
+            if (game.uiState == UiState.CHAT) {
+                chatUi.update();
+            }
+
         }
     }
 
@@ -51,6 +59,11 @@ public class GuiManager implements IBaseUi {
         if (game.gameState == GameState.START_SCREEN) {
           //  gameUi.draw(g2);
         }
+
+
+        if (Game.DEBUG) {
+            debugUi.draw(g2);
+        }
     }
 
     private void handleGameStateUi(Graphics2D g2) {
@@ -63,6 +76,9 @@ public class GuiManager implements IBaseUi {
         if (game.uiState == UiState.CHEST_INVENTORY) {
             chestInventoryUi.draw(g2);
         }
+        if (game.uiState == UiState.CHAT) {
+            chatUi.draw(g2);
+        }
     }
 
     @Override
@@ -70,6 +86,7 @@ public class GuiManager implements IBaseUi {
 
         if (game.gameState == GameState.PLAYING) {
             gameUi.handleMouseWheel(e);
+            chatUi.handleMouseWheel(e);
             chestInventoryUi.handleMouseWheel(e);
         }
         if (game.gameState == GameState.INVENTORY) {

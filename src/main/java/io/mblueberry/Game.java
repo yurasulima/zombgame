@@ -4,13 +4,16 @@ import io.mblueberry.core.CollisionChecker;
 import io.mblueberry.core.EventHandler;
 import io.mblueberry.core.GameState;
 import io.mblueberry.core.World;
+import io.mblueberry.core.ai.PathFinder;
+import io.mblueberry.core.model.ChatMessage;
+import io.mblueberry.core.object.entity.Direction;
+import io.mblueberry.core.object.item.*;
 import io.mblueberry.core.particle.ParticleSystem;
-import io.mblueberry.object.block.Chest;
-import io.mblueberry.object.entity.Player;
-import io.mblueberry.object.item.AxeItem;
-import io.mblueberry.object.item.ShieldItem;
-import io.mblueberry.object.item.SwordItem;
-import io.mblueberry.object.block.Block;
+import io.mblueberry.core.object.block.ChestBlock;
+import io.mblueberry.core.object.entity.Player;
+import io.mblueberry.core.object.entity.npc.HitNPC;
+import io.mblueberry.core.object.entity.npc.OldManNPC;
+import io.mblueberry.core.object.block.Block;
 import io.mblueberry.input.KeyHandler;
 import io.mblueberry.input.MouseHandler;
 import io.mblueberry.input.MouseMoveHandler;
@@ -18,17 +21,20 @@ import io.mblueberry.input.MouseWheelHandler;
 import io.mblueberry.server.Client;
 import io.mblueberry.server.Server;
 import io.mblueberry.ui.GuiManager;
-import io.mblueberry.ui.UI;
 import io.mblueberry.ui.UiState;
 import io.mblueberry.ui.component.Button;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game extends JPanel implements Runnable {
-    public static int tileSize = 64;
+    public static int TILE_SIZE = 64;
+    public static boolean DEBUG = false;
     public int cameraX = 0;
     public int cameraY = 0;
+    public String username = "mblueberry";
     public KeyHandler keyHandler;
     public EventHandler eventHandler;
     public MouseHandler mouseHandler;
@@ -41,7 +47,7 @@ public class Game extends JPanel implements Runnable {
     public String gameType;
     public GameState gameState;
     public UiState uiState;
-    public UI ui;
+    public PathFinder pathFinder;
     public ParticleSystem particleSystem;
     public GuiManager guiManager;
     public Button button;
@@ -49,7 +55,6 @@ public class Game extends JPanel implements Runnable {
     public Button buttonClient;
     public Server server;
     public Client client;
-
     public boolean isServer = false;
     public boolean isServerStarted = false;
 
@@ -57,7 +62,6 @@ public class Game extends JPanel implements Runnable {
     public boolean isClientStarted = false;
 
     public void setupGame() {
-        guiManager = new GuiManager(this);
         mouseHandler = new MouseHandler(this);
         mouseMoveHandler = new MouseMoveHandler(this);
         particleSystem = new ParticleSystem();
@@ -66,51 +70,53 @@ public class Game extends JPanel implements Runnable {
         keyHandler = new KeyHandler(this);
         collisionChecker = new CollisionChecker(this);
         eventHandler = new EventHandler(this);
-        player = new Player(this, keyHandler, 10, 10, "player");
+        player = new Player(this, 4, 6);
+
+
         player.inventory.add(new AxeItem());
+        player.inventory.add(new BowItem());
+        player.inventory.add(new PikeItem());
         player.inventory.add(new SwordItem());
         player.inventory.add(new ShieldItem());
-        Chest chest1 = new Chest(this);
-        chest1.update();
-        player.inventory.add(chest1);
+        player.inventory.add(new BoomerangItem());
+        ChestBlock chestBlock1 = new ChestBlock(this);
+        chestBlock1.stackCount = 5;
+        player.inventory.add(chestBlock1);
 
 
         Block grass00 = new Block("grass00");
-        grass00.setupImage();
         player.inventory.add(grass00);
 
         Block grass01 = new Block("grass01");
-        grass01.setupImage();
         player.inventory.add(grass01);
 
         Block tree = new Block("tree");
-        tree.setupImage();
         tree.stackCount = 33;
         player.inventory.add(tree);
 
         Block tree1 = new Block("tree");
-        tree1.setupImage();
         tree1.stackCount = 31;
         player.inventory.add(tree1);
 
 
         Block tree2 = new Block("tree");
-        tree2.setupImage();
         player.inventory.add(tree2);
 
         Block road00 = new Block("road00");
-        road00.setupImage();
         player.inventory.add(road00);
 
-
         Block wall = new Block("wall");
-        wall.setupImage();
         player.inventory.add(wall);
 
-
         world = new World(this, player);
-        ui = new UI(this);
-        //button = new Button(100, 100, 200, 50, "Start", this::onButtonClick);
+        pathFinder = new PathFinder(this);
+        OldManNPC e = new OldManNPC(this, 23, 23);
+        world.entities.add(e);
+        e.speak();
+
+        HitNPC hitNPC = new HitNPC(this, 10, 10);
+        world.entities.add(hitNPC);
+
         button = new Button(100, 100, 200, 50, "Start");
         buttonClient = new Button(100, 200, 200, 50, "Start Client");
         buttonServer = new Button(100, 400, 200, 50, "Start Server");
@@ -118,20 +124,24 @@ public class Game extends JPanel implements Runnable {
         server = new Server(this);
         client = new Client(this);
         setFocusable(true);
+
+
+        guiManager = new GuiManager(this);
         addKeyListener(keyHandler);
         addMouseMotionListener(mouseMoveHandler);
         addMouseListener(mouseHandler);
         addMouseWheelListener(mouseWheelHandler);
-      //  addMouseListener(button);
-      //  addMouseListener(buttonServer);
-      //  addMouseListener(buttonClient);
+        addKeyListener(player);
     }
 
-//    private void onButtonClick() {
-//        gameState = GameState.PLAYING;
-//        System.out.println("pressed");
-//    }
 
+    public void moveCamera(int x, int y) {
+       // System.out.println("worldSizeX = " + 50 * TILE_SIZE);
+       /// System.out.println("cameraX = " + cameraX);
+       // System.out.println("sceernSizeX = " + getWidth());
+        cameraX += x;
+        cameraY += y;
+    }
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
@@ -171,7 +181,7 @@ public class Game extends JPanel implements Runnable {
         } else if (gameState == GameState.GAME_OVER) {
 
         }
-        ui.update();
+      //  ui.update();
         guiManager.update();
         particleSystem.update();
     }
@@ -220,7 +230,7 @@ public class Game extends JPanel implements Runnable {
       //  ui.draw(g2);
         world.draw(g2);
         guiManager.draw(g2);
-        particleSystem.draw(g2);
+     //   particleSystem.draw(g2);
         g2.dispose();
     }
 

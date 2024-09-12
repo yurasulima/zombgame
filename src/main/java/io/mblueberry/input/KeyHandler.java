@@ -6,6 +6,8 @@ import io.mblueberry.ui.UiState;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import static io.mblueberry.Game.DEBUG;
+
 public class KeyHandler implements KeyListener {
     public boolean upPressed;
     public boolean downPressed;
@@ -33,8 +35,13 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
-        //PLAY STATE
-     //   if (game.gameState == game.playState) {
+
+        if (game.uiState == UiState.CHAT) {
+            game.guiManager.chatUi.handleKeyBoard(e);
+        } else 
+        if (game.uiState == UiState.HUD) {
+
+            //TODO move key handler to gameUi class
             if (code == KeyEvent.VK_ENTER) {
                 enterPressed = true;
             }
@@ -54,47 +61,33 @@ public class KeyHandler implements KeyListener {
 
             }
             if (code == KeyEvent.VK_F5) {
-                showDebug = !showDebug;
+                DEBUG = !DEBUG;
 
             }
             if (code == KeyEvent.VK_R) {
                 showStata = !showStata;
             }
+
+
+            if (code == KeyEvent.VK_T) {
+                game.uiState = UiState.CHAT;
+            }
+
             if (code == KeyEvent.VK_E) {
-                showInventory = !showInventory;
-                if (showInventory) {
                     game.uiState = UiState.INVENTORY;
-                } else {
-                    game.uiState = UiState.HUD;
-                }
+
             }
             if (code == KeyEvent.VK_SPACE) {
                 spacePressed = !spacePressed;
 
             }
-
-//            if (code == KeyEvent.VK_ESCAPE) {
-//                game.gameState = game.pauseState;
-//            }
-       // }
-
-//        //PAUSE STATE
-//        else if (game.gameState == game.pauseState) {
-//            if (code == KeyEvent.VK_ESCAPE) {
-//                game.gameState = game.playState;
-//            }
-//
-//        }
-//
-//        //DIALOGUE STATE
-//        else if (game.gameState == game.dialogueState) {
-//
-//            if (code == KeyEvent.VK_ESCAPE) {
-//                game.gameState = game.playState;
-//            }
-//        }
-
-
+        }
+         else if (game.uiState == UiState.INVENTORY) {
+            game.uiState = UiState.HUD;
+        } else if (game.uiState == UiState.CHEST_INVENTORY) {
+            game.guiManager.chestInventoryUi.chestBlock.close();
+            game.uiState = UiState.HUD;
+        }
     }
 
     @Override

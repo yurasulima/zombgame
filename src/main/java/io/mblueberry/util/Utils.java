@@ -2,9 +2,11 @@ package io.mblueberry.util;
 
 import io.mblueberry.Game;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -13,6 +15,18 @@ public class Utils {
 
     public static double calculateDistance(int blockX, int blockY, int playerX, int playerY) {
         return Math.sqrt(Math.pow(blockX - playerX, 2) + Math.pow(blockY - playerY, 2));
+    }
+
+    public static BufferedImage setupCustom(String imageName, int width, int heigth) {
+        BufferedImage scaleImage = null;
+
+        try {
+            scaleImage = ImageIO.read(Utils.class.getResourceAsStream(imageName + ".png"));
+            scaleImage = Utils.scaleIMage(scaleImage, width, heigth);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return scaleImage;
     }
 
     public static BufferedImage scaleIMage(BufferedImage original, int width, int height) {

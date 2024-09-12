@@ -32,12 +32,11 @@ public class MouseHandler implements MouseListener {
     public void mouseReleased(MouseEvent e) {
 
         if (game.gameState == GameState.START_SCREEN) {
-            game.ui.handleMouseClick(e);
+          //  game.ui.handleMouseClick(e);
         }
         if (game.gameState == GameState.PLAYING) {
             if (game.uiState == UiState.HUD) {
-                game.world.handleMouseClickWorld(e);
-                game.world.handleMouseReleased(e);
+                game.guiManager.gameUi.handleMouseClick(e);
             }
             if (game.uiState == UiState.CHEST_INVENTORY) {
                 game.guiManager.chestInventoryUi.handleClickMouse(e);
@@ -52,7 +51,6 @@ public class MouseHandler implements MouseListener {
 //        }
         if (game.gameState == GameState.PLAYING) {
             if (game.uiState == UiState.HUD) {
-                game.world.handleMousePressed(e);
             }
 //            if (game.uiState == UiState.CHEST_INVENTORY) {
 //                game.guiManager.chestInventoryUi.handleClickMouse(e);

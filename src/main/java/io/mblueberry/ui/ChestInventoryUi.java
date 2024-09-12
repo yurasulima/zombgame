@@ -1,8 +1,8 @@
 package io.mblueberry.ui;
 
 import io.mblueberry.Game;
-import io.mblueberry.object.block.Chest;
-import io.mblueberry.object.item.GameObject;
+import io.mblueberry.core.object.block.ChestBlock;
+import io.mblueberry.core.object.item.GameObject;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -12,14 +12,14 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 
-import static io.mblueberry.Game.tileSize;
+import static io.mblueberry.Game.TILE_SIZE;
 
 public class ChestInventoryUi implements IBaseUi {
     private Game game;
     private BufferedImage inventoryUi;
     private int row;
     private int column;
-    public Chest chest;
+    public ChestBlock chestBlock;
     public GameObject selectedGameObject;
     public int selectedIndex;
     public GameObject cursorGameObject;
@@ -32,7 +32,7 @@ public class ChestInventoryUi implements IBaseUi {
         this.game = game;
 
         try {
-            inventoryUi = ImageIO.read(ChestInventoryUi.class.getResourceAsStream("/ui/chest_inv.png"));
+            inventoryUi = ImageIO.read(ChestInventoryUi.class.getResourceAsStream("/textures/ui/chest_inv.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -54,10 +54,12 @@ public class ChestInventoryUi implements IBaseUi {
         g2.setColor(c);
         g2.drawImage(inventoryUi, 150, 150, 594, 470, null);
         drawInventory(g2);
-        drawChestInventory(g2, chest);
+        drawInventoryItemCount(g2);
+        drawChestInventory(g2, chestBlock);
+        drawChestInventoryItemCount(g2, chestBlock);
         drawSelector(g2);
         if (cursorGameObject != null) {
-            g2.drawImage(cursorGameObject.icon, mouseX, mouseY, tileSize, tileSize, null);
+            g2.drawImage(cursorGameObject.texture, mouseX, mouseY, TILE_SIZE, TILE_SIZE, null);
         }
     }
 
@@ -71,11 +73,32 @@ public class ChestInventoryUi implements IBaseUi {
         List<GameObject> inventoryItems = game.player.inventory.getAll();
         for (int i = 0; i < inventoryItems.size(); i++) {
             GameObject item = inventoryItems.get(i);
-            if (item != null && item.getIcon() != null) {
-                g.drawImage(item.getIcon(), x + padding, y + padding, slotSize - padding * 2, slotSize - padding * 2, null);
-                g.setColor(Color.WHITE);
-                g.setFont(g.getFont().deriveFont(18F));
-                g.drawString(String.valueOf(item.stackCount), x + padding + 50, y + padding + 60);
+            if (item != null && item.getTexture() != null) {
+                g.drawImage(item.getTexture(), x + padding, y + padding, slotSize - padding * 2, slotSize - padding * 2, null);
+               }
+            x += slotSize + padding;
+            if ((i + 1) % 9 == 0) {
+                x = startX;
+                y += slotSize + padding;
+            }
+        }
+    }
+    private void drawInventoryItemCount(Graphics2D g) {
+        int startX = 150 + 5; // Початковий X
+        int startY = 150 + 5 + 190 + 9; // Початковий Y
+        int slotSize = 64; // Розмір одного слота (ширина і висота квадрата)
+        int padding = 1; // Відступ між слотами
+        int x = startX;
+        int y = startY;
+        List<GameObject> inventoryItems = game.player.inventory.getAll();
+        for (int i = 0; i < inventoryItems.size(); i++) {
+            GameObject item = inventoryItems.get(i);
+            if (item != null && item.getTexture() != null) {
+                if (item.stackCount > 1) {
+                    g.setColor(Color.WHITE);
+                    g.setFont(g.getFont().deriveFont(18F));
+                    g.drawString(String.valueOf(item.stackCount), x + padding + 42, y + padding + 60);
+                }
             }
             x += slotSize + padding;
             if ((i + 1) % 9 == 0) {
@@ -85,21 +108,42 @@ public class ChestInventoryUi implements IBaseUi {
         }
     }
 
-    private void drawChestInventory(Graphics2D g, Chest chest) {
+    private void drawChestInventory(Graphics2D g, ChestBlock chestBlock) {
         int startX = 150 + 5;
         int startY = 150 + 5;
         int slotSize = 64;
         int padding = 1;
         int x = startX;
         int y = startY;
-        List<GameObject> inventoryItems = chest.container.getAll();
+        List<GameObject> inventoryItems = chestBlock.container.getAll();
         for (int i = 0; i < inventoryItems.size(); i++) {
             GameObject item = inventoryItems.get(i);
-            if (item != null && item.getIcon() != null) {
-                g.drawImage(item.getIcon(), x + padding, y + padding, slotSize - padding * 2, slotSize - padding * 2, null);
-                g.setColor(Color.WHITE);
-                g.setFont(g.getFont().deriveFont(18F));
-                g.drawString(String.valueOf(item.stackCount), x + padding + 50, y + padding + 60);
+            if (item != null && item.getTexture() != null) {
+                g.drawImage(item.getTexture(), x + padding, y + padding, slotSize - padding * 2, slotSize - padding * 2, null);
+            }
+            x += slotSize + padding;
+            if ((i + 1) % 9 == 0) {
+                x = startX;
+                y += slotSize + padding;
+            }
+        }
+    }
+    private void drawChestInventoryItemCount(Graphics2D g, ChestBlock chestBlock) {
+        int startX = 150 + 5;
+        int startY = 150 + 5;
+        int slotSize = 64;
+        int padding = 1;
+        int x = startX;
+        int y = startY;
+        List<GameObject> inventoryItems = chestBlock.container.getAll();
+        for (int i = 0; i < inventoryItems.size(); i++) {
+            GameObject item = inventoryItems.get(i);
+            if (item != null && item.getTexture() != null) {
+                if (item.stackCount > 1) {
+                    g.setColor(Color.WHITE);
+                    g.setFont(g.getFont().deriveFont(18F));
+                    g.drawString(String.valueOf(item.stackCount), x + padding + 50, y + padding + 60);
+                }
             }
             x += slotSize + padding;
             if ((i + 1) % 9 == 0) {
@@ -117,39 +161,30 @@ public class ChestInventoryUi implements IBaseUi {
 
 
     private void drawSelector(Graphics2D g2) {
-        int startX = 150 + 5; // Початковий X
-        int startY = 150 + 5; // Початковий Y
-        int addX = tileSize * column + (column);
-        int addY = tileSize * row + (row);
+        int startX = 150 + 5;
+        int startY = 150 + 5;
+        int addX = TILE_SIZE * column + (column);
+        int addY = TILE_SIZE * row + (row);
+        int columns = 9;
+        int chestRows = 3;
 
-        int columns = 9; // Кількість стовпців у контейнері
-        int chestRows = 3; // Кількість рядків у контейнері скрині
-        int playerRows = 4; // Кількість рядків в інвентарі гравця
-//        System.out.println("column = " + column);
-//        System.out.println("row = " + row);
         if (row < 7 && column < 9) {
             if (row > 2) {
                 addY += 5;
             }
-
             if (row < chestRows) {
                 selectedIndex = row * columns + column;
-               // System.out.println("Chest column = " + column + "row = " + row + " index = " + selectedIndex);
-                selectedGameObject = chest.container.get(selectedIndex);
+                selectedGameObject = chestBlock.container.get(selectedIndex);
                 chestContainer = true;
             } else {
                 int playerRow = row - chestRows;
                 selectedIndex = playerRow * columns + column;
-              //  System.out.println("Chest column = " + column + " row = " + playerRow + " index = " + selectedIndex);
                 selectedGameObject = game.player.inventory.get(selectedIndex);
                 chestContainer = false;
             }
 
-
             g2.setColor(Color.GREEN);
             g2.drawRect(startX + addX, startY + addY, 64, 64);
-
-         //   System.out.println("selectedGameObject = " + selectedGameObject);
         }
     }
 
@@ -164,7 +199,7 @@ public class ChestInventoryUi implements IBaseUi {
                 if (cursorGameObject != null) {
                     //додаєм з курсора в слот
                     if (chestContainer) {
-                        chest.container.addAt(cursorGameObject, selectedIndex);
+                        chestBlock.container.addAt(cursorGameObject, selectedIndex);
                     } else {
                         game.player.inventory.addAt(cursorGameObject, selectedIndex);
                     }
@@ -176,7 +211,7 @@ public class ChestInventoryUi implements IBaseUi {
                     //берем предмет в курсор і забираєм з сундука або інвента
                     cursorGameObject = selectedGameObject;
                     if (chestContainer) {
-                        chest.container.remove(selectedIndex);
+                        chestBlock.container.remove(selectedIndex);
                     } else {
                         game.player.inventory.remove(selectedIndex);
                     }
@@ -189,7 +224,7 @@ public class ChestInventoryUi implements IBaseUi {
                 if (cursorGameObject != null) {
                     //кладем предмет в слот та забираєм з курсора
                     if (chestContainer) {
-                        chest.container.addAt(cursorGameObject, selectedIndex);
+                        chestBlock.container.addAt(cursorGameObject, selectedIndex);
                     } else {
                         game.player.inventory.addAt(cursorGameObject, selectedIndex);
                     }

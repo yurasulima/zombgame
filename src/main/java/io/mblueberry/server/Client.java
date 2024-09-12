@@ -1,7 +1,5 @@
 package io.mblueberry.server;
 
-import io.mblueberry.object.entity.MPlayer;
-import io.mblueberry.object.entity.Player;
 import io.mblueberry.Game;
 
 import java.io.BufferedReader;
@@ -43,12 +41,12 @@ public class Client extends Thread {
                 }
                 if (newMessage.startsWith("/move")) {
                     String[] data = newMessage.split(" ");
-                    System.out.println("dataMole = " + Arrays.toString(data));
+                //    System.out.println("dataMole = " + Arrays.toString(data));
                     String name = data[1];
                     int x = Integer.parseInt(data[2]);
                     int y = Integer.parseInt(data[3]);
 
-                    game.world.entities.add(new MPlayer(game, x, y, name));
+                 //   game.world.entities.add(new MPlayer(game, x, y, name));
                 }
                 if (newMessage.startsWith("/spawn")) {
                     String[] data = newMessage.split(" ");
@@ -58,9 +56,9 @@ public class Client extends Thread {
                     int y = Integer.parseInt(data[3]);
 
                     if (nickname.equals(name)) {
-                        game.player = new Player(game, game.keyHandler, x, y, name);
+                   //     game.playerOld = new PlayerOld(game, game.keyHandler, x, y, name);
                     } else {
-                        game.world.entities.add(new MPlayer(game, x, y, name));
+                      //  game.world.entities.add(new MPlayer(game, x, y, name));
                     }
 
 

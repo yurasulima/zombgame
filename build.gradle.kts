@@ -2,6 +2,7 @@ plugins {
     id("java")
 
     id("com.github.johnrengelman.shadow") version "8.0.0"
+    kotlin("jvm")
 }
 
 group = "org.example"
@@ -18,12 +19,16 @@ repositories {
 }
 
 dependencies {
+    implementation("org.json:json:20240303")
+// https://mvnrepository.com/artifact/com.raylabz/opensimplex
+    implementation("com.raylabz:opensimplex:1.0.3")
 
     implementation("com.google.code.gson:gson:2.11.0")
     compileOnly("org.projectlombok:lombok:1.18.28")
     annotationProcessor("org.projectlombok:lombok:1.18.28")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    implementation(kotlin("stdlib-jdk8"))
 }
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
@@ -49,4 +54,7 @@ tasks {
 }
 tasks.test {
     useJUnitPlatform()
+}
+kotlin {
+    jvmToolchain(17)
 }
