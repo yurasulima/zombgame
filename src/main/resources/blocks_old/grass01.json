@@ -1,7 +1,0 @@
-{
-  "type": "grass01",
-  "collision": false,
-  "interact": false,
-  "texture": "grass01",
-  "name": "Трава"
-}

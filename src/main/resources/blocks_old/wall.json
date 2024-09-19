@@ -1,7 +1,0 @@
-{
-  "type": "wall",
-  "collision": true,
-  "interact": false,
-  "texture": "wall",
-  "name": "Стіна"
-}
