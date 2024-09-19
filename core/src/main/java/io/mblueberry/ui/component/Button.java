@@ -1,5 +1,7 @@
 package io.mblueberry.ui.component;
 
+import lombok.Setter;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
@@ -11,6 +13,7 @@ public class Button {
     private String label;
     private Color normalColor, hoverColor, clickColor, textColor;
     private boolean hovering = false, clicking = false;
+    @Setter
     private Runnable onClick;
 
     public Button(int x, int y, int width, int height, String label) {
@@ -27,9 +30,6 @@ public class Button {
     public void setPosition(int x, int y) {
         this.x = x;
         this.y = y;
-    }
-    public void setOnClick(Runnable onClick) {
-        this.onClick = onClick;
     }
 
     public void setColors(Color normalColor, Color hoverColor, Color clickColor, Color textColor) {

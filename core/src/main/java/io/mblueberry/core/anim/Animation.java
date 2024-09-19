@@ -4,9 +4,9 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 
 public class Animation {
-    private List<BufferedImage> frames;  // List of animation frames
+    private final List<BufferedImage> frames;  // List of animation frames
     private int currentFrame;
-    private long frameTime;              // Duration of each frame
+    private final long frameTime;              // Duration of each frame
     private long lastFrameChangeTime;     // Last time the frame was changed
 
     public Animation(List<BufferedImage> frames, long frameTime) {

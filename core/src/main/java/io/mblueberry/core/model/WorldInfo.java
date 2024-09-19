@@ -6,8 +6,8 @@ import java.util.List;
 
 @Data
 public class WorldInfo {
-    String name;
-    int size;
-    List<String> blocks;
-    List<Integer> map;
+    public String name;
+    public int size;
+    public List<String> blocks;
+    public List<Integer> map;
 }

@@ -2,9 +2,7 @@ package io.mblueberry.mapseditor;
 
 import lombok.ToString;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 @ToString
 public class Tile {
@@ -22,10 +20,10 @@ public class Tile {
     }
 
     public Tile(Tile newTile) {
-        this.x = newTile.x;;
-        this.y = newTile.y;;
-        this.texture = newTile.texture;;
-        this.name = newTile.name;;
+        this.x = newTile.x;
+        this.y = newTile.y;
+        this.texture = newTile.texture;
+        this.name = newTile.name;
     }
 
 }

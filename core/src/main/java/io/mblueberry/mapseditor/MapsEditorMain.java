@@ -1,7 +1,5 @@
 package io.mblueberry.mapseditor;
 
-import io.mblueberry.Game;
-
 import javax.swing.*;
 import java.awt.*;
 
