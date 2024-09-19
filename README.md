@@ -3,7 +3,8 @@ ZombGame - 2D Гра про виживання в світі зомбі
 
 
 
-[![Telegram](https://github.com/CLorant/readme-social-icons/blob/main/large/colored/telegram.svg)](https://t.me/zombgame)
+Обговорення та звязок [![Telegram](https://github.com/CLorant/readme-social-icons/blob/main/large/colored/telegram.svg)](https://t.me/zombgame)
+
 ZombGame — це 2D гра на виживання, де гравцям потрібно будувати, захищатися та виживати проти орд зомбі та інших істот. Гра має різноманітні механіки, включаючи будівництво, управління ресурсами та бойові дії.
 Особливості
 Будівлі
