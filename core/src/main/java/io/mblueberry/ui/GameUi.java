@@ -1,8 +1,9 @@
 package io.mblueberry.ui;
 
-import io.mblueberry.core.object.block.Block;
-import io.mblueberry.core.object.item.GameObject;
+import io.mblueberry.object.block.Block;
+import io.mblueberry.object.item.GameObject;
 import io.mblueberry.Game;
+import io.mblueberry.object.item.SwordItem;
 import io.mblueberry.ui.component.Slot;
 
 import java.awt.*;
@@ -11,7 +12,7 @@ import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.mblueberry.Game.TILE_SIZE;
+import static io.mblueberry.Const.TILE_SIZE;
 import static io.mblueberry.util.Utils.calculateDistance;
 public class GameUi implements IBaseUi {
     private static final int SLOT_COUNT = 9;
@@ -64,8 +65,6 @@ public class GameUi implements IBaseUi {
         }
     }
 
-
-
     private void drawPicker(Graphics2D g2) {
         double distance = calculateDistance(
                 currentPickBlock.getX() * TILE_SIZE + game.cameraX,
@@ -98,10 +97,14 @@ public class GameUi implements IBaseUi {
             case "bow":
                 // game.player.shoot(mouseX, mouseY);
                 break;
-            case "sword_normal":
             case "pike":
+                break;
             case "boomerang":
                 gameObject.use(game.player);
+                break;
+            case "sword_normal":
+                SwordItem item = (SwordItem) gameObject;
+                item.use(game.player);
                 break;
         }
 
@@ -139,7 +142,7 @@ public class GameUi implements IBaseUi {
     }
 
     public void handleMouseMove(MouseEvent e) {
-        currentPickBlock = game.world.getTileScreen(e.getX() - game.cameraX, e.getY() - game.cameraY);
+        //TODO currentPickBlock = game.world.getTileScreen(e.getX() - game.cameraX, e.getY() - game.cameraY);
     }
 
     @Override

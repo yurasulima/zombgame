@@ -6,7 +6,7 @@ import io.mblueberry.ui.UiState;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import static io.mblueberry.Game.DEBUG;
+import static io.mblueberry.Const.DEBUG;
 
 public class KeyHandler implements KeyListener {
     public boolean upPressed;
@@ -14,8 +14,6 @@ public class KeyHandler implements KeyListener {
     public boolean leftPressed;
     public boolean rightPressed;
     public boolean enterPressed;
-    public boolean showDebug;
-    public boolean paused;
     public boolean spacePressed;
     public boolean showStata = false;
     public boolean showInventory = false;

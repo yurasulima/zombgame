@@ -1,7 +1,7 @@
 package io.mblueberry.input;
 
 import io.mblueberry.Game;
-import io.mblueberry.core.GameState;
+import io.mblueberry.GameState;
 import io.mblueberry.ui.UiState;
 
 import java.awt.event.MouseEvent;

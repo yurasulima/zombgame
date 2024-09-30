@@ -1,7 +1,7 @@
 package io.mblueberry.ui;
 
 import io.mblueberry.Game;
-import io.mblueberry.core.object.item.GameObject;
+import io.mblueberry.object.item.GameObject;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 
-import static io.mblueberry.Game.TILE_SIZE;
+import static io.mblueberry.Const.TILE_SIZE;
 
 
 public class InventoryUi implements IBaseUi {

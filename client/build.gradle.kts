@@ -9,13 +9,7 @@ repositories {
     mavenCentral()
 }
 
-sourceSets {
-    main {
-        resources {
-            srcDir("src/")
-        }
-    }
-}
+
 
 dependencies {
 

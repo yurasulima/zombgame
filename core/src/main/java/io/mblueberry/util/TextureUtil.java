@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.mblueberry.Game.TILE_SIZE;
+import static io.mblueberry.Const.TILE_SIZE;
 
 public class TextureUtil {
 
@@ -45,7 +45,6 @@ public class TextureUtil {
     @SneakyThrows
     public static BufferedImage loadBlockTexture(String imageName) {
         BufferedImage scaleImage = getBufferedImage(imageName, "/textures/blocks");
-        System.out.println("scaleImage = " + scaleImage);
         scaleImage = scaleTexture(scaleImage, TILE_SIZE, TILE_SIZE);
         return scaleImage;
     }
@@ -77,7 +76,6 @@ public class TextureUtil {
 
 
     private static BufferedImage getBufferedImage(String imageName, String path) throws IOException {
-        System.out.println(path + "/" + imageName + ".png");
         InputStream resourceAsStream = TextureUtil.class.getResourceAsStream(path + "/" + imageName + ".png");
         if (resourceAsStream == null) {
             resourceAsStream = TextureUtil.class.getResourceAsStream("/not_found.png");

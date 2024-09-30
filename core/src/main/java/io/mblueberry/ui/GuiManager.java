@@ -1,7 +1,8 @@
 package io.mblueberry.ui;
 
+import io.mblueberry.Const;
 import io.mblueberry.Game;
-import io.mblueberry.core.GameState;
+import io.mblueberry.GameState;
 import io.mblueberry.ui.menu.ConnectToServerUi;
 import io.mblueberry.ui.menu.DisconnectUi;
 import io.mblueberry.ui.menu.StartMenuUi;
@@ -59,7 +60,7 @@ public class GuiManager implements IBaseUi {
         if (game.gameState == GameState.PLAYING) {
             handleGameStateUi(g2);
 
-            if (Game.DEBUG) {
+            if (Const.DEBUG) {
                 debugUi.draw(g2);
             }
         }

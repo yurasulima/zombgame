@@ -1,7 +1,7 @@
 package io.mblueberry.ui.menu;
 
 import io.mblueberry.Game;
-import io.mblueberry.core.GameState;
+import io.mblueberry.GameState;
 import io.mblueberry.ui.IBaseUi;
 import io.mblueberry.ui.component.Button;
 import io.mblueberry.ui.component.ListButton;

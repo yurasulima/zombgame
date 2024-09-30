@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
-import static io.mblueberry.Game.TILE_SIZE;
+import static io.mblueberry.Const.TILE_SIZE;
 
 public class DebugUi implements IBaseUi{
     private final Game game;
@@ -33,8 +33,8 @@ public class DebugUi implements IBaseUi{
         g2.drawString(" camera y: "+game.cameraY, 10, 430);
         g2.drawString(" absolute x: " + (game.player.x - game.cameraX), 10, 450);
         g2.drawString(" absolute y: " + (game.player.y - game.cameraY), 10, 470);
-        g2.drawString(" block: " + game.world.getTileScreen(game.player.x - game.cameraX, game.player.y - game.cameraY).getType(), 10, 490);
-
+        //TODO g2.drawString(" block: " + game.world.getTileScreen(game.player.x - game.cameraX, game.player.y - game.cameraY).getType(), 10, 490);
+        g2.drawString(" block: " + game.level.getBlock(game.player.x - game.cameraX, game.player.y - game.cameraY).getType(), 10, 490);
         if (game.guiManager.gameUi.currentPickBlock != null) {
             g2.drawString(" picker: " + game.guiManager.gameUi.currentPickBlock.getType(), 10, 510);
         }

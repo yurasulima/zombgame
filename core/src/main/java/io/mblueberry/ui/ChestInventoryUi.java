@@ -1,8 +1,8 @@
 package io.mblueberry.ui;
 
 import io.mblueberry.Game;
-import io.mblueberry.core.object.block.ChestBlock;
-import io.mblueberry.core.object.item.GameObject;
+import io.mblueberry.object.block.ChestBlock;
+import io.mblueberry.object.item.GameObject;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 
-import static io.mblueberry.Game.TILE_SIZE;
+import static io.mblueberry.Const.TILE_SIZE;
 
 public class ChestInventoryUi implements IBaseUi {
     private Game game;
@@ -211,7 +211,6 @@ public class ChestInventoryUi implements IBaseUi {
                     if (cursorGameObject.stackCount <= 0) {
                         cursorGameObject = null;
                     }
-                    System.out.println("додаєм з курсора в слот");
                 } else {
                     //берем предмет в курсор і забираєм з сундука або інвента
                     cursorGameObject = selectedGameObject;
@@ -221,7 +220,7 @@ public class ChestInventoryUi implements IBaseUi {
                         game.player.inventory.remove(selectedIndex);
                     }
                 }
-            }
+            } else
 
             //в слоту нема предмета
             if (selectedGameObject == null) {

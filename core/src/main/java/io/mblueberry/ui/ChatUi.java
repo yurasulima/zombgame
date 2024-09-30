@@ -1,7 +1,7 @@
 package io.mblueberry.ui;
 
 import io.mblueberry.Game;
-import io.mblueberry.core.model.ChatMessage;
+import io.mblueberry.model.ChatMessage;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -96,7 +96,7 @@ public class ChatUi implements IBaseUi {
             }
             default -> {
                 if (Character.isLetterOrDigit(keyChar) || Character.isSpaceChar(keyChar)) {
-                    message.append(keyChar);
+                    message.append(e.getKeyChar());
                 }
             }
         }

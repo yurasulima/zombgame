@@ -144,7 +144,6 @@ public class Button {
 //    @Override
 //    public void mouseClicked(MouseEvent e) {
 //       // if (hovered) {
-//      //  System.out.println("e.toString() = " + e.toString());
 //            clicked = true;
 //       // }
 //    }

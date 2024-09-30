@@ -2,7 +2,7 @@ package io.mblueberry.input;
 
 
 import io.mblueberry.Game;
-import io.mblueberry.core.GameState;
+import io.mblueberry.GameState;
 import io.mblueberry.ui.UiState;
 
 import java.awt.event.MouseEvent;
@@ -18,15 +18,12 @@ public class MouseHandler implements MouseListener {
     }
 
     public void mouseClicked(MouseEvent e) {
-        //System.out.println("Mouse mouseClicked");
     }
 
     public void mouseEntered(MouseEvent e) {
-        //System.out.println("Mouse mouseEntered");
     }
 
     public void mouseExited(MouseEvent e) {
-        //System.out.println("Mouse mouseExited");
     }
 
     public void mouseReleased(MouseEvent e) {

@@ -8,7 +8,6 @@ public interface IBaseUi {
 
     void update();
     void draw(Graphics2D g2);
-
     void handleMouseWheel(MouseWheelEvent e);
     void handleMouse(MouseEvent e);
 }

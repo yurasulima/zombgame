@@ -1,27 +1,22 @@
 package io.mblueberry;
 
-import io.mblueberry.core.CollisionChecker;
-import io.mblueberry.core.EventHandler;
-import io.mblueberry.core.GameState;
-import io.mblueberry.core.World;
-import io.mblueberry.core.ai.PathFinder;
-import io.mblueberry.core.object.entity.Entity;
-import io.mblueberry.core.object.item.*;
-import io.mblueberry.core.particle.ParticleSystem;
-import io.mblueberry.core.object.block.ChestBlock;
-import io.mblueberry.core.object.entity.Player;
-import io.mblueberry.core.object.entity.npc.HitNPC;
-import io.mblueberry.core.object.entity.npc.OldManNPC;
-import io.mblueberry.core.object.block.Block;
+import io.mblueberry.ai.PathFinder;
+import io.mblueberry.level.Level;
+import io.mblueberry.level.World;
+import io.mblueberry.object.entity.Entity;
+import io.mblueberry.object.item.*;
+import io.mblueberry.object.block.ChestBlock;
+import io.mblueberry.object.entity.Player;
+import io.mblueberry.object.entity.npc.HitNPC;
+import io.mblueberry.object.entity.npc.OldManNPC;
+import io.mblueberry.object.block.Block;
 import io.mblueberry.input.KeyHandler;
 import io.mblueberry.input.MouseHandler;
 import io.mblueberry.input.MouseMoveHandler;
 import io.mblueberry.input.MouseWheelHandler;
-import io.mblueberry.server.Client;
-import io.mblueberry.server.GameClient;
-import io.mblueberry.server.GameServer;
-import io.mblueberry.server.Server;
-import io.mblueberry.server.packet.PlayerUpdate;
+import io.mblueberry.network.GameClient;
+import io.mblueberry.network.GameServer;
+import io.mblueberry.model.packet.PlayerUpdate;
 import io.mblueberry.ui.GuiManager;
 import io.mblueberry.ui.UiState;
 import io.mblueberry.ui.component.Button;
@@ -30,8 +25,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Game extends JPanel implements Runnable {
-    public static int TILE_SIZE = 64;
-    public static boolean DEBUG = true;
     public int cameraX = 0;
     public int cameraY = 0;
     public String username = "mblueberry";
@@ -42,6 +35,7 @@ public class Game extends JPanel implements Runnable {
     public MouseMoveHandler mouseMoveHandler;
     public Thread gameThread;
     public World world;
+    public Level level;
     public CollisionChecker collisionChecker;
     public Player player;
     public Entity hitNpc;
@@ -49,7 +43,6 @@ public class Game extends JPanel implements Runnable {
     public GameState gameState;
     public UiState uiState;
     public PathFinder pathFinder;
-    public ParticleSystem particleSystem;
     public GuiManager guiManager;
     public Button button;
     public Button buttonServer;
@@ -63,7 +56,6 @@ public class Game extends JPanel implements Runnable {
         // Ініціалізація гри, яка підходить як для клієнта, так і для сервера
         mouseHandler = new MouseHandler(this);
         mouseMoveHandler = new MouseMoveHandler(this);
-        particleSystem = new ParticleSystem();
         uiState = UiState.HUD;
         mouseWheelHandler = new MouseWheelHandler(this);
         keyHandler = new KeyHandler(this);
@@ -72,6 +64,8 @@ public class Game extends JPanel implements Runnable {
         player = new Player(this, 4, 6);
         hitNpc = new HitNPC(this, 6, 6);
         world = new World(this, player);
+        level = new Level(this);
+        level.spawn(player);
         pathFinder = new PathFinder(this);
         guiManager = new GuiManager(this);
 
@@ -170,12 +164,12 @@ public class Game extends JPanel implements Runnable {
         if (gameState == GameState.START_SCREEN) {
             // Логіка стартового екрану
         } else if (gameState == GameState.PLAYING) {
-            world.update();
+           // world.update();
+            level.update();
         } else if (gameState == GameState.GAME_OVER) {
             // Логіка екрану завершення гри
         }
         guiManager.update();
-        particleSystem.update();
     }
 
     @Override
@@ -206,7 +200,8 @@ public class Game extends JPanel implements Runnable {
 
         // Малювання гри
         if (gameState == GameState.PLAYING) {
-            world.draw(g2);
+            //world.draw(g2);
+            level.draw(g2);
         }
         guiManager.draw(g2);
         g2.dispose();

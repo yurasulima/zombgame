@@ -29,11 +29,9 @@ public class UI {
 //        settings = new Button(0, 0, 200, 50, "Settings");
 //        button.setOnClick(() -> {
 //            game.gameState = GameState.PLAYING;
-//            System.out.println("Start clicked!");
 //        });
 //        settings.setOnClick(() -> {
 //            game.gameState = GameState.PAUSED;
-//            System.out.println("settings clicked!");
 //        });
 //    }
 //
@@ -96,7 +94,6 @@ public class UI {
 ////            slot1 = new Slot(x, y, 64, 64);
 ////
 ////            slot1.setOnClick(() -> {
-////                System.out.println("slot clicked!");
 ////            });
 ////            slot1.draw(g2);
 ////           // g2.drawRect(x, y, 64, 64);
